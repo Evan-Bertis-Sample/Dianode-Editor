@@ -6,6 +6,7 @@
 
 #include "Core/Application.hpp"
 #include "Core/Instrumentor.hpp"
+#include "main_menu_bar.hpp"
 #include "Core/Log.hpp"
 
 int main() {
@@ -15,6 +16,8 @@ int main() {
     {
       APP_PROFILE_SCOPE("Test scope");
       App::Application app{"App"};
+      MainMenuBar bar;
+      app.push_layer(bar);
       app.run();
     }
 

@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.22)
 include(cmake/AppleBuild.cmake)
 
 project(
-  BasicGuiProjectSetupSDL2OpenGL
-  DESCRIPTION "Base gui project setup with SDL2 and OpenGL."
+  Dianode-Editor
+  DESCRIPTION "A node based GUI for creating branching dialogue, powered by Dialogue-Driver."
   LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)

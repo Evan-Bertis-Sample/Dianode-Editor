@@ -8,6 +8,7 @@
 #include <backends/imgui_impl_sdl.h>
 #include <glad/glad.h>
 #include <imgui.h>
+#include <chrono>
 
 #include "Core/Instrumentor.hpp"
 
@@ -59,6 +60,8 @@ ExitStatus App::Application::run() {
   m_state.running = true;
 
   const ImGuiIO& io{ImGui::GetIO()};
+  auto now = std::chrono::high_resolution_clock::now();
+  auto lastUpdate = now;
 
   while (m_state.running) {
     APP_PROFILE_SCOPE("MainLoop");
@@ -79,37 +82,53 @@ ExitStatus App::Application::run() {
       }
     }
 
+    // * Layer modifications made by Evan Bertis-Sample
+    // Calculate dt
+    now = std::chrono::high_resolution_clock::now();
+    auto deltaTime = std::chrono::duration<double, std::milli>(now - lastUpdate).count();
+    lastUpdate = now;
+    // Update layer state
+    for (auto &layer : this->m_layer_stack) {
+      layer->OnUpdate((float)deltaTime);
+    }
+
     // Start the Dear ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
 
-    if (!m_state.minimized) {
-      ImGui::DockSpaceOverViewport();
-
-      if (ImGui::BeginMainMenuBar()) {
-        if (ImGui::BeginMenu("File")) {
-          if (ImGui::MenuItem("Exit", "Cmd+Q")) {
-            stop();
-          }
-          ImGui::EndMenu();
-        }
-        if (ImGui::BeginMenu("View")) {
-          ImGui::MenuItem("Some Panel", nullptr, &m_state.show_some_panel);
-          ImGui::EndMenu();
-        }
-
-        ImGui::EndMainMenuBar();
-      }
+    // Draw the layers
+    for (auto &layer : this->m_layer_stack) {
+      layer->OnUIRender(this->m_state.minimized);
     }
 
-    // Whatever GUI to implement here ...
-    if (m_state.show_some_panel) {
-      ImGui::Begin("Some panel", &m_state.show_some_panel);
-      // NOLINTNEXTLINE
-      ImGui::Text("Hello World");
-      ImGui::End();
-    }
+    // * Default Display code
+    // if (!m_state.minimized) {
+    //   ImGui::DockSpaceOverViewport();
+
+    //   if (ImGui::BeginMainMenuBar()) {
+    //     if (ImGui::BeginMenu("File")) {
+    //       if (ImGui::MenuItem("Exit", "Cmd+Q")) {
+    //         stop();
+    //       }
+    //       ImGui::EndMenu();
+    //     }
+    //     if (ImGui::BeginMenu("View")) {
+    //       ImGui::MenuItem("Some Panel", nullptr, &m_state.show_some_panel);
+    //       ImGui::EndMenu();
+    //     }
+
+    //     ImGui::EndMainMenuBar();
+    //   }
+    // }
+
+    // // Whatever GUI to implement here ...
+    // if (m_state.show_some_panel) {
+    //   ImGui::Begin("Some panel", &m_state.show_some_panel);
+    //   // NOLINTNEXTLINE
+    //   ImGui::Text("Hello World");
+    //   ImGui::End();
+    // }
 
     // Rendering
     ImGui::Render();
@@ -134,6 +153,8 @@ ExitStatus App::Application::run() {
 
 void App::Application::stop() {
   m_state.running = false;
+
+  // * Here we would call Layer Detach methods
 }
 
 void Application::on_event(const SDL_WindowEvent& event) {
