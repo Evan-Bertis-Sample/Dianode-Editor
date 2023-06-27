@@ -11,5 +11,5 @@ This repository contains node-based GUI built on top of [Dialogue-Driver](https:
 
 ## Dependencies
 This project includes these dependencies as submodules:
--[Dialogue-Driver](https://github.com/Evan-Bertis-Sample/Dialogue-Driver): The core of Dianode
--[imgui-node-editor](https://github.com/thedmd/imgui-node-editor/tree/master): An extension of Dear Imgui that makes the node-editor possible
+* [Dialogue-Driver](https://github.com/Evan-Bertis-Sample/Dialogue-Driver): The core of Dianode
+* [imgui-node-editor](https://github.com/thedmd/imgui-node-editor/tree/master): An extension of Dear Imgui that makes the node-editor possible
