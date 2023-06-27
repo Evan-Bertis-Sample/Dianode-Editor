@@ -4,14 +4,16 @@
 
 #include <map>
 #include <iostream>
+
+#include "Core/Application.hpp"
 #include "Core/Layer.hpp"
 
 class MainMenuBar : public App::Layer {
  public:
   MainMenuBar() {}
 
-  void OnUIRender(bool applicationMinimized) override {
-    if (applicationMinimized)
+  void OnUIRender(App::Application &app) {
+    if (app.State.minimized)
       return;
 
     ImGui::DockSpaceOverViewport();
@@ -19,7 +21,7 @@ class MainMenuBar : public App::Layer {
     if (ImGui::BeginMainMenuBar()) {
       if (ImGui::BeginMenu("File")) {
         if (ImGui::MenuItem("Exit", "Cmd+Q")) {
-            std::cout << "Exit" << std::endl;
+            app.stop();
         }
         ImGui::EndMenu();
       }

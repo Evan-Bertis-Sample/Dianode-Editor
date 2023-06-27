@@ -57,13 +57,13 @@ ExitStatus App::Application::run() {
     return m_exit_status;
   }
 
-  m_state.running = true;
+  State.running = true;
 
   const ImGuiIO& io{ImGui::GetIO()};
   auto now = std::chrono::high_resolution_clock::now();
   auto lastUpdate = now;
 
-  while (m_state.running) {
+  while (State.running) {
     APP_PROFILE_SCOPE("MainLoop");
 
     SDL_Event event{};
@@ -99,7 +99,7 @@ ExitStatus App::Application::run() {
 
     // Draw the layers
     for (auto &layer : this->m_layer_stack) {
-      layer->OnUIRender(this->m_state.minimized);
+      layer->OnUIRender(*this);
     }
 
     // * Default Display code
@@ -152,7 +152,7 @@ ExitStatus App::Application::run() {
 }
 
 void App::Application::stop() {
-  m_state.running = false;
+  State.running = false;
 
   // * Here we would call Layer Detach methods
 }
@@ -179,11 +179,11 @@ void Application::on_resize([[maybe_unused]] const SDL_WindowEvent& event) {
 }
 
 void Application::on_minimize() {
-  m_state.minimized = true;
+  State.minimized = true;
 }
 
 void Application::on_shown() {
-  m_state.minimized = false;
+  State.minimized = false;
 }
 
 void Application::on_close() {

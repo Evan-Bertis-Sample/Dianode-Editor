@@ -2,6 +2,8 @@
 
 namespace App {
 
+class Application;
+
 class Layer {
  public:
     virtual ~Layer() = default;
@@ -16,7 +18,7 @@ class Layer {
     virtual void OnUpdate(float dt) {}
 
     // Called on every update loop of the application, after rendering
-    virtual void OnUIRender(bool applicationMinimized) {}
+    virtual void OnUIRender(App::Application &app) {}
 };
 
 }  // namespace App

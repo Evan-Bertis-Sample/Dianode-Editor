@@ -20,6 +20,12 @@ enum class ExitStatus : int { SUCCESS = 0, FAILURE = 1 };
 
 class Application {
  public:
+  struct State {
+    bool running{false};
+    bool minimized{false};
+  };
+  State State{};
+
   explicit Application(const std::string& title);
   ~Application();
 
@@ -52,17 +58,11 @@ class Application {
   }
 
  private:
-  struct State {
-    bool running{false};
-    bool minimized{false};
-    bool show_some_panel{true};
-  };
-
   void set_theme() const;
 
   ExitStatus m_exit_status{ExitStatus::SUCCESS};
   std::shared_ptr<Window> m_window{nullptr};
-  State m_state{};
+
   std::vector<std::shared_ptr<Layer>> m_layer_stack;
 };
 
