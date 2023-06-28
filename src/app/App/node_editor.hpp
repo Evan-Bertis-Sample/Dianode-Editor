@@ -22,6 +22,7 @@ class NodeEditor : public App::Layer {
   }
 
   void OnUIRender(App::Application &app) {
+	ImGui::Begin("Dialogue Node Editor", NULL, ImGuiWindowFlags_MenuBar);
     const int hardcoded_node_id = 1;
 
     ImNodes::BeginNodeEditor();
@@ -31,5 +32,7 @@ class NodeEditor : public App::Layer {
     ImNodes::EndNode();
 
     ImNodes::EndNodeEditor();
+
+	ImGui::End();
   }
 };
