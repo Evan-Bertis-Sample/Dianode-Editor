@@ -4,11 +4,15 @@
 
 #define SDL_MAIN_HANDLED
 
+#include <dialogue_driver/fact.h>
+
+#include <iostream>
+
 #include "Core/Application.hpp"
 #include "Core/Instrumentor.hpp"
+#include "Core/Log.hpp"
 #include "main_menu_bar.hpp"
 #include "node_editor.hpp"
-#include "Core/Log.hpp"
 
 int main() {
   try {
@@ -21,6 +25,10 @@ int main() {
       NodeEditor ne;
       app.push_layer(bar);
       app.push_layer(ne);
+
+      Fact intFact(1);
+      std::cout << intFact.Get<int>() << std::endl;
+
       app.run();
     }
 
