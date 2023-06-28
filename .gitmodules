@@ -1,0 +1,3 @@
+[submodule "src/imnodes/Imnodes"]
+	path = src/imnodes/Imnodes
+	url = https://github.com/Nelarius/imnodes.git
