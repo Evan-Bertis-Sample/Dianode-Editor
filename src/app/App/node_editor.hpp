@@ -18,28 +18,18 @@ class NodeEditor : public App::Layer {
   }
 
   void OnDetach() {
-	ImNodes::DestroyContext();
+    ImNodes::DestroyContext();
   }
 
   void OnUIRender(App::Application &app) {
-    if (app.State.minimized)
-      return;
+    const int hardcoded_node_id = 1;
 
-    ImGui::DockSpaceOverViewport();
+    ImNodes::BeginNodeEditor();
 
-    if (ImGui::BeginMainMenuBar()) {
-      if (ImGui::BeginMenu("File")) {
-        if (ImGui::MenuItem("Exit", "Cmd+Q")) {
-          app.stop();
-        }
-        ImGui::EndMenu();
-      }
-      if (ImGui::BeginMenu("View")) {
-        ImGui::MenuItem("Some Panel", nullptr, true);
-        ImGui::EndMenu();
-      }
+    ImNodes::BeginNode(hardcoded_node_id);
+    ImGui::Dummy(ImVec2(80.0f, 45.0f));
+    ImNodes::EndNode();
 
-      ImGui::EndMainMenuBar();
-    }
+    ImNodes::EndNodeEditor();
   }
 };
