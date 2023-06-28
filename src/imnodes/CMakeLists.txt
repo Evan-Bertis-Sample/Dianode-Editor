@@ -16,10 +16,10 @@ endif()
 
 # Imnodes
 
-add_library(imnodes)
+add_library(imnodes STATIC)
 target_sources(imnodes PRIVATE
     Imnodes/imnodes.h
     Imnodes/imnodes_internal.h
     Imnodes/imnodes.cpp)
-target_include_directories(imnodes PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(imnodes PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Imnodes)
 target_link_libraries(imnodes PUBLIC ${IMNODES_IMGUI_TARGET_NAME})
