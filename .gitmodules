@@ -1,3 +1,6 @@
 [submodule "src/imnodes/Imnodes"]
 	path = src/imnodes/Imnodes
 	url = https://github.com/Nelarius/imnodes.git
+[submodule "src/dialogue-driver/Dialogue-Driver"]
+	path = src/dialogue-driver/Dialogue-Driver
+	url = https://github.com/Evan-Bertis-Sample/Dialogue-Driver.git
