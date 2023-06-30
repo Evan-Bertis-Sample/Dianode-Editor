@@ -20,7 +20,7 @@ int main() {
 
     {
       APP_PROFILE_SCOPE("Test scope");
-      App::Application app{"App"};
+      App::Application app{"Dianode"};
       MainMenuBar bar;
       NodeEditor ne;
       app.push_layer(bar);
