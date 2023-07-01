@@ -25,10 +25,6 @@ int main() {
       NodeEditor ne;
       app.push_layer(bar);
       app.push_layer(ne);
-
-      Fact intFact(1);
-      std::cout << intFact.Get<int>() << std::endl;
-
       app.run();
     }
 
